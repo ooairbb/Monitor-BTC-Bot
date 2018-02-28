@@ -36,5 +36,5 @@ def readFile(filename):
 
 print getFirstPage(JIANDAN_URL, HEADERS)
 
-readFile('urllist.txt')
+#readFile('urllist.txt')
 #saveList(getFirstPage(JIANDAN_URL, HEADERS))
