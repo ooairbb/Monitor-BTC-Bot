@@ -1,5 +1,5 @@
 from bs4 import BeautifulSoup
-import telebot, requests, json,logging
+import telebot, requests, json,logging, os
 from config import TOKEN
 bot = telebot.TeleBot(TOKEN)
 
@@ -15,7 +15,7 @@ def getFirstPage(url, headers):
 		url = i.a['href']
 		print i.a.get_text() #url_contents
 		if url not in urllist:
-			#urllist.append(url)
+			urllist.append(url)
 			saveList(url)
 	#result = json.dumps(urllist, encoding = 'utf-8', ensure_ascii=False)
 			bot.send_message("@testmypythonbot", text = url)
@@ -23,15 +23,17 @@ def getFirstPage(url, headers):
 	
 
 def saveList(url):
-	f = open('urllist.txt','a+')
-	f.write(url + '\n')
-	f.close()
+	with open('urllist.txt','a+') as f:
+		f.write(url + '\n')
 
 def readFile(filename):
 	list = []
-	with open(filename) as f:
-		for line in f:
-			list.append(line.rstrip())
+	if not(os.path.exists(filename) and os.path.isfile(filename)):
+		os.mknod(filename)
+	else:
+		with open(filename, 'r') as f:
+			for line in f:
+				list.append(line.rstrip())
 	return list
 
 print getFirstPage(JIANDAN_URL, HEADERS)
