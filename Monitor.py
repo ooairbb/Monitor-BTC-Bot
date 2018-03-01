@@ -5,7 +5,7 @@ from config import TOKEN
 urllib3.disable_warnings()
 bot = telebot.TeleBot(TOKEN)
 API = 'https://min-api.cryptocompare.com/data/pricemulti?fsyms={0}&tsyms={1}'
-DIGITAL_CURRENCY_LIST = ['BTC','ETH']
+DIGITAL_CURRENCY_LIST = ['BTC','ETH','ETP']
 CURRENCY_LIST = ['USD','CNY']
 
 
@@ -28,7 +28,8 @@ def sendtoot(info, DIGITAL_CURRENCY_LIST, CURRENCY_LIST):
 		for x in CURRENCY_LIST:
 			temp = info[i]
 			print temp[x]
-			result += i + ' ' + x + str(temp[x]) + '|'
+			result += i + ' ' + x + ' ' + str(temp[x]) + ' '
+		result += '|'
 	bot.send_message("@testmypythonbot", text = result)
 sendtoot(getprice(DIGITAL_CURRENCY_LIST, CURRENCY_LIST), DIGITAL_CURRENCY_LIST, CURRENCY_LIST)
 #bot.send_message("@testmypythonbot", text = DIGITAL_CURRENCY + ' Price :' + str(getPrice('BTC', 'USD')))
